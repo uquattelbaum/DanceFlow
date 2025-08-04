@@ -36,3 +36,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist/*"
           target: ${{ secrets.TARGET_PATH }}
+          strip_components: 1      # entfernt Pfadteile aus dist/*
+          overwrite: true          # ersetzt bestehende Dateien
