@@ -21,15 +21,18 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Build
+      - name: Optional: Lint prüfen
+        run: npm run lint
+        continue-on-error: true  # wenn du kein Linting hast, kannst du diese Zeile auch löschen
+
+      - name: Build ausführen
         run: npm run build
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v0.1.6
+      - name: Deploy via SCP
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist/"
+          source: "dist/*"
           target: ${{ secrets.TARGET_PATH }}
-          rm: true
