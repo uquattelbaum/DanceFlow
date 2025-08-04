@@ -23,7 +23,12 @@ jobs:
 
       - name: "Optional: Lint prüfen"
         run: npm run lint
-        continue-on-error: true  # wenn du kein Linting hast, kannst du diese Zeile auch löschen
+        continue-on-error: true  # Wenn kein Linter vorhanden, kann diese Zeile entfernt werden
+
+      - name: Umgebungsvariablen schreiben
+        run: |
+          echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" >> .env
+          echo "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}" >> .env
 
       - name: Build ausführen
         run: npm run build
@@ -36,5 +41,3 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist/*"
           target: ${{ secrets.TARGET_PATH }}
-          strip_components: 1      # entfernt Pfadteile aus dist/*
-          overwrite: true          # ersetzt bestehende Dateien
