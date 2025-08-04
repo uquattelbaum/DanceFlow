@@ -21,7 +21,7 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Optional: Lint prüfen
+      - name: "Optional: Lint prüfen"
         run: npm run lint
         continue-on-error: true  # wenn du kein Linting hast, kannst du diese Zeile auch löschen
 
